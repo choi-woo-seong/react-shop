@@ -60,9 +60,7 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className='main-bg' onClick={() => {
-        navigate("/detail")
-      }}></div>
+      <div className='main-bg'></div>
 
         {/* 라우터 처리 */}
         <Routes>

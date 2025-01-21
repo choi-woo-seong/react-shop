@@ -1,13 +1,22 @@
+// eslint no-restricted-globals: ["off"]
 import { useParams } from "react-router-dom";
 
 function Detail(props) {
   let {id} = useParams();
+
+  if(parseInt(id) >= props.product.length){
+    alert("찾는 페이지가 없습니다");
+    window.history.back();
+    return;
+  }
+
   let strPrice = props.product[id].price.toLocaleString('ko-KR');
+  
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6">
-          <img src = {process.env.PUBLIC_URL + `../images/shoes${id}.jpg`} width="100%"></img>
+          <img src = {process.env.PUBLIC_URL + `../images/shoes${parseInt(id)+1}.jpg`} width="100%"></img>
         </div>
           <div className="col-md-6">
             <h4 className="pt-5">{props.product[id].title}</h4>
