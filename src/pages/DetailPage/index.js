@@ -6,8 +6,13 @@ import { useEffect, useState } from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { buyItem } from '../../store';
+import { useDispatch, useSelector } from 'react-redux'
 
 function Detail(props) {
+  let navigate = useNavigate();
+  let dispatcher = useDispatch();
   //2초 후에 alert state -> false
   useEffect(()=>{
     let myTimer = setTimeout(()=>{setAlert(false)}, 2000)
@@ -46,6 +51,8 @@ function Detail(props) {
   }
 
   let strPrice = props.product[id].price.toLocaleString('ko-KR');
+
+  let itemInfo = props.product;
   
   return (
     <div className="container">
@@ -61,7 +68,10 @@ function Detail(props) {
             <h4 className="pt-5">{props.product[id].title}</h4>
             <p>{props.product[id].content}</p>
             <p>{strPrice}원</p>
-            <button className="btn btn-danger">주문하기</button>
+            <button className="btn btn-danger" onClick={() => {
+                    dispatcher(buyItem(itemInfo[id]));
+                    navigate('/cart')
+            }}>주문하기</button>
           </div>
 
           <Tabs
